@@ -80,6 +80,7 @@ export default {
                 ) {
                     // console.log(saveArray)
                     let photo = this.getPhoto()
+                    photo = photo.substring(22)
                     request({
                         url: '/faceid/post-face',
                         method: 'post',
@@ -89,14 +90,18 @@ export default {
                     }).then((data) => {
                         this.check = true
                         this.cTime = timeFormat(data.data.time)
+                        setTimeout(() => {
+                            this.check = false
+                        }, 2000)
                     })
                     for (let key in saveArray) {
                         delete saveArray[key]
                     }
                 }
-            }, 2000)
+            }, 3000)
         },
         // 获取人像照片
+
         getPhoto() {
             let video = document.getElementById('video')
             let can = document.getElementById('shortCut')
@@ -139,22 +144,22 @@ export default {
             video.srcObject.getTracks()[0].stop()
         },
     },
-    watch: {
-        // faceView(v) {
-        //     if (v == false) {
-        //         this.closeFace()
-        //     }
-        // },
-        // imgView(v) {
-        //     if (v == true) {
-        //         this.$message.success({
-        //             message: '截取成功！点击保存图片',
-        //             offset: 380,
-        //             duration: 1000,
-        //         })
-        //     }
-        // },
-    },
+    // watch: {
+    //     // faceView(v) {
+    //     //     if (v == false) {
+    //     //         this.closeFace()
+    //     //     }
+    //     // },
+    //     // imgView(v) {
+    //     //     if (v == true) {
+    //     //         this.$message.success({
+    //     //             message: '截取成功！点击保存图片',
+    //     //             offset: 380,
+    //     //             duration: 1000,
+    //     //         })
+    //     //     }
+    //     // },
+    // },
     destroyed() {},
     created() {
         // request({
