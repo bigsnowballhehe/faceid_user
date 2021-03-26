@@ -45,9 +45,10 @@ export default {
       }).then((data) => {
         console.log(data)
         if (data.data.code == 200) {
+          let time = data.data.time
+          // time = parseInt(time) + 8 * 60 * 60
           this.check = true
-          this.cTime =
-            '打卡成功，时间为' + timeFormat(data.data.time) + '  请勿再次打卡'
+          this.cTime = '打卡成功，时间为' + timeFormat(time) + '  请勿再次打卡'
         } else {
           this.check = true
           this.cTime = data.data.msg
