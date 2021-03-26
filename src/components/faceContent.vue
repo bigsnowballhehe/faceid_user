@@ -5,7 +5,7 @@
       <canvas id="canvas" width="581" height="436"></canvas>
       <canvas id="canvas1" width="581" height="436"></canvas>
     </div>
-    <span v-if="check">打卡成功，时间为{{ cTime }}</span>
+    <span v-if="check">{{ cTime }}</span>
     <div class="btns">
       <button type="primary" @click="start">打开摄像头</button>
       <button type="primary" @click="checkIn">签到</button>
@@ -43,8 +43,15 @@ export default {
           photo: photo,
         },
       }).then((data) => {
-        this.check = true
-        this.cTime = timeFormat(data.data.time)
+        console.log(data)
+        if (data.data.code == 200) {
+          this.check = true
+          this.cTime =
+            '打卡成功，时间为' + timeFormat(data.data.time) + '  请勿再次打卡'
+        } else {
+          this.check = true
+          this.cTime = data.data.msg
+        }
       })
     },
     start() {
